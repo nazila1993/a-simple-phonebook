@@ -96,7 +96,7 @@ def menu_():
             x=exit,     exit=exit,
             f=find_,    find=find_,
             d=delete_,  delete=delete_,
-            e=edit_,    edit=edit_,
+            #e=edit_,    edit=edit_,
         ).get(
             input("?").lower().strip(),
             lambda : print("wrong command!") # we use get method in dictionary because of using wrong command instead of print None and we use lambda becuase we shod use gunction , we have () at the end
