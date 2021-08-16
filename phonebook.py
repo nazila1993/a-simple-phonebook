@@ -1,6 +1,13 @@
 import pickle as pk
 contacts = []
 
+feature= dict(
+    fname= "firstname",
+    lname= "lastname",
+    phone= "phone No",
+    email = "Email"
+)
+
 def add_():
     contacts.append(dict(
         fname = input("first name :"),
@@ -24,7 +31,7 @@ def load_():
 
 def view_(l=None):# we use l=none because we want our function has 2 applications:1. view 2.delet or edit one contact
     # python aval function mikhune dore aval bad mire dakhele tavabe mikhune pas barae hamin inja agar b jae l = None > l=contacts bezarim barae ma list khali miare va error mikhorim vaghti dakhele tabe khund barae hamin dar dakhele tabe l = contacts gharar midim
-    # l= None age chizi nagereft az tabe find biad bere to tabe va contacts neshun bede age chizi greft dar tabe find hamuno neshun bede
+    # l= None age chizi nagereft az tabe view biad bere to tabe va contacts neshun bede age chizi greft dar tabe view hamuno neshun bede
     if l == None:#?
         l = contacts#?
     if len(l) == 0:
@@ -78,9 +85,20 @@ def find_(just_one=False):# dobare mikhaym function find 2 ta kar anjam bede yki
     if just_one:# vaghti bekhaym faghat ykio delete edit konim
         if len(result) > 1:
             idx = int(input("which one?")) -1
-            return (result[idx]) # inja az return estefade mikonim chon dar tabe hastim va age begim print kon faghat print mikone va neshun mide
+            return (result[idx]) # inja az return estefade mikonim chon dar tabe hastim va age begim print kon faghat print mikone va neshun mide ama ba return meghdaro barmigardune hamechio
         elif len(result == 1):
             return(result[0])
+
+def edit_():
+    x = find_(justone=True)
+    if x == None:
+        return
+    contacts.remove(x)
+    for k,v in x.items():
+        x[k]= input(feature.get(k),f' ({v}): ') or v
+        contacts.append(x)
+    save_()
+
         
 
     
@@ -96,7 +114,7 @@ def menu_():
             x=exit,     exit=exit,
             f=find_,    find=find_,
             d=delete_,  delete=delete_,
-            #e=edit_,    edit=edit_,
+            e=edit_,    edit=edit_,
         ).get(
             input("?").lower().strip(),
             lambda : print("wrong command!") # we use get method in dictionary because of using wrong command instead of print None and we use lambda becuase we shod use gunction , we have () at the end
