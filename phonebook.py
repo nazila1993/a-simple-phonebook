@@ -1,4 +1,4 @@
-import pickle as pk
+import json
 contacts = []
 
 feature= dict(
@@ -18,14 +18,14 @@ def add_():
     save_()
 
 def save_():
-    with open("Desktop/contacts.pkl", "wb") as f:
-        pk.dump(contacts,f)
+    with open("contacts.json", "w") as f:
+        json.dump(contacts,f)
 
 def load_():
     global contacts
     try:
-        with open("Desktop/contacts.pkl", "rb") as f:
-            contacts = pk.load(f)
+        with open("contacts.json") as f:
+            contacts = json.load(f)
     except:
         contacts = []
 
@@ -37,7 +37,7 @@ def view_(l=None):# we use l=none because we want our function has 2 application
     if len(l) == 0:
         print("There is nothing to show")
         return
-    print("NO  ", end='') # dorost kardan satr barae dorost neshun dadan contacts
+    print("NO  ",end =' ') # dorost kardan satr barae dorost neshun dadan contacts
     for i in ("firstname", "lastname", "phone NO", "Email address"): #titr k b sorate ofoghi hast
         print(i.upper().ljust(12), end='') #ljust = 12 yani har kodom b andaze 12 ta character ja bede
     print() # y khate khali chap kone
@@ -86,24 +86,18 @@ def find_(just_one=False):# dobare mikhaym function find 2 ta kar anjam bede yki
         if len(result) > 1:
             idx = int(input("which one?")) -1
             return (result[idx]) # inja az return estefade mikonim chon dar tabe hastim va age begim print kon faghat print mikone va neshun mide ama ba return meghdaro barmigardune hamechio
-        elif len(result == 1):
+        elif len(result) == 1:
             return(result[0])
 
 def edit_():
-    x = find_(justone=True)
+    x = find_(just_one=True)
     if x == None:
         return
     contacts.remove(x)
     for k,v in x.items():
-        x[k]= input(feature.get(k),f' ({v}): ') or v
+        x[k]= input(feature.get(k) + f' {(v)}: ') or v
         contacts.append(x)
-    save_()
-
-        
-
-    
-
-
+        save_()
 
 def menu_():
     while True:
